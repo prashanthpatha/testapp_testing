@@ -25,6 +25,7 @@ public class Parser {
 		String storyName = "";
 		String storyFormattedID = "";
 		String newScheduledState = "";
+		String oldScheduledState = "";
 		
 		Iterator<JsonNode> state = rootNode.path("state").elements();
 		
@@ -45,12 +46,25 @@ public class Parser {
 			}			
 		}
 		
-		messageToPost = "Story `" + action + "`" + " by " + username +
+		Iterator<JsonNode> changes = rootNode.path("changes").elements();
+		
+		while(changes.hasNext()) {
+			JsonNode jsonNode = changes.next();
+			
+			
+			if(jsonNode.path("name").asText().equals("ScheduleState")) {
+				oldScheduledState = jsonNode.path("old_value").path("name").asText();
+			}		
+		}
+		
+		messageToPost = "User Story ( " + storyFormattedID + " ) `" + action + "`" + " by " + username +
+					"\n_*Scheduled State*_ changed :  ~" + oldScheduledState + "~  " + newScheduledState +
+					"\n\n*Story details* : " +
 					"\nName = " + storyName + 
 					"\nID = " + storyFormattedID +
-					"\nProject = " + projectName +
 					"\nNew Scheduled State = " + newScheduledState +
-					"\n\n Details : " + detailLink;
+					"\n\nProject = " + projectName +
+					"\n\n Click on below link for more details on this story : \n" + detailLink;
 		
 		return messageToPost;
 	}

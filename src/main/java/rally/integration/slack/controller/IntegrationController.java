@@ -1,6 +1,9 @@
 package rally.integration.slack.controller;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Scanner;
+
 import org.apache.http.client.ClientProtocolException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
