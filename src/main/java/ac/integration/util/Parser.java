@@ -1,4 +1,4 @@
-package rally.integration.slack.util;
+package ac.integration.util;
 
 import java.io.IOException;
 import java.util.Iterator;
@@ -6,6 +6,13 @@ import java.util.Iterator;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+/**
+ * Parser for parsing the json and getting required data from it
+ * 
+ * @author patpr14
+ *
+ */
 
 public class Parser {
 	

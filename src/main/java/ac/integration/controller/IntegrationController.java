@@ -1,4 +1,4 @@
-package rally.integration.slack.controller;
+package ac.integration.controller;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -13,8 +13,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import rally.integration.slack.service.SlackService;
-import rally.integration.slack.util.Parser;
+import ac.integration.service.SlackService;
+import ac.integration.util.Parser;
+
+/**
+ * This controller can listen to events in AC , handle redirect requests from other 3rd party services etc
+ *  
+ * @author patpr14
+ *
+ */
 
 @RestController
 @RequestMapping("/api")
@@ -34,7 +41,8 @@ public class IntegrationController {
 		slackService.postMessageToSlack(messageToPost);		
 	}
 	
-	/*public static void main(String[] args) throws ClientProtocolException, IOException {
+	/* method to test the api * 
+	 * public static void main(String[] args) throws ClientProtocolException, IOException {
 		
 		FileInputStream fis = new FileInputStream(new IntegrationController().getClass().getClassLoader().getResource("event.json").getFile());
 		

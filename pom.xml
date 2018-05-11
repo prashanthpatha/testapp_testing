@@ -2,12 +2,12 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>rally.integration</groupId>
-	<artifactId>slack</artifactId>
+	<groupId>ac.integration</groupId>
+	<artifactId>integrationservice</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>slack</name>
+	<name>integrationservice</name>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -23,8 +23,6 @@
 	</properties>
 
 	<dependencies>
-		<!-- Add typical dependencies for a web application -->
-		<!-- Adds Tomcat and Spring MVC, along others -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -48,9 +46,10 @@
 
 	<build>
 		<plugins>
-			<plugin><!-- Include if you want to make an executable jar[FAT JAR which 
-					includes all dependencies along with sprinboot loader] that you can run on 
-					commandline using java -jar NAME -->
+			<!-- Plugin to make an executable jar [ FAT JAR which includes all dependencies 
+				along with spring boot loader ] that you can run on command line using java 
+				-jar NAME -->
+			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
