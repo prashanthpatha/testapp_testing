@@ -74,6 +74,7 @@ public class SlackService {
 
 		Properties properties = helper.getProperties("slack.properties");
 
+		HttpClient httpClient = HttpClientBuilder.create().build();
 		URIBuilder uriBuilder = new URIBuilder(SLACK_OAUTH_ACCESS_URL);
 		uriBuilder.setParameter("client_id", properties.getProperty("client_id"))
 				.setParameter("client_secret", properties.getProperty("client_secret")).setParameter("code", code);
