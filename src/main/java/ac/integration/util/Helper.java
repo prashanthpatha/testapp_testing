@@ -116,6 +116,8 @@ public class Helper {
 			}
 			slackProperties.setProperty("incoming_webhook", hookValue);
 			
+			logger.info("new hookValue = " + slackProperties.getProperty("incoming_webhook"));
+			
 		} catch (IOException e) {
 			logger.error(e.getMessage(),e);
 		}
