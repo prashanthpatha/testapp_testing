@@ -38,11 +38,10 @@ public class SlackService {
 
 	public static final String SLACK_OAUTH_ACCESS_URL = "https://slack.com/api/oauth.access";
 
-	HttpClient httpClient;
+	
 	Helper helper;
 
 	public SlackService() {// TODO Auto-generated constructor stub
-		httpClient = HttpClientBuilder.create().build();
 		helper = new Helper();
 	}
 
@@ -50,6 +49,7 @@ public class SlackService {
 		logger.info("message : " + message);
 		logger.info("Posting to hook : " + incomingWebbookURL);
 		
+		HttpClient httpClient = HttpClientBuilder.create().build();
 		HttpPost httpPost = new HttpPost(incomingWebbookURL);
 		StringEntity entity = new StringEntity("{\"text\" : \"" + message + "\"}");
 		entity.setContentType("application/json");
