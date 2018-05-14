@@ -58,6 +58,8 @@ public class SlackService {
 	
 	public void postMessageToSlackChannels(String message) throws ClientProtocolException, IOException {
 		String[] hooks = helper.getIncomingWebhookURLs();
+		logger.info("hooks.length : " + hooks.length);
+		
 		for (int i = 0; i < hooks.length; i++) {
 			logger.info("l : message : " + message);
 			logger.info("l : Posting to hook : " + hooks[i]);
