@@ -45,12 +45,21 @@ public class SlackService {
 		helper = new Helper();
 	}
 
-	public void postMessageToSlack(String message) throws ClientProtocolException, IOException {
-		HttpPost httpPost = new HttpPost(SLACK_INCOMING_WEBHOOK);
+	public void postMessageToSlackChannel(String message, String incomingWebbookURL) throws ClientProtocolException, IOException {
+		logger.info("Posting to hook : " + incomingWebbookURL);
+		
+		HttpPost httpPost = new HttpPost(incomingWebbookURL);
 		StringEntity entity = new StringEntity("{\"text\" : \"" + message + "\"}");
 		entity.setContentType("application/json");
 		httpPost.setEntity(entity);
 		httpClient.execute(httpPost);
+	}
+	
+	public void postMessageToSlackChannels(String message) throws ClientProtocolException, IOException {
+		String[] hooks = helper.getIncomingWebhookURLs();
+		for (int i = 0; i < hooks.length; i++) {
+			postMessageToSlackChannel(message,hooks[i]);
+		}
 	}
 
 	public void getSlackResources(String code) throws URISyntaxException, ClientProtocolException, IOException {
@@ -67,13 +76,14 @@ public class SlackService {
 		HttpResponse httpResponse = httpClient.execute(httpGet);
 		
 		ResponseHandler<String> handler = new BasicResponseHandler();
-		String response = handler.handleResponse(httpResponse);
+		String responseBody = handler.handleResponse(httpResponse);
 		int responseCode = httpResponse.getStatusLine().getStatusCode();
 		
 		logger.info("\n*********** Begin : OAuth Access response *************\n");
 		logger.info("\nresponse code : " + responseCode + "\n");
-		logger.info(response);
+		logger.info(responseBody);
 		logger.info("\n************* End : OAuth Access response ***********\n");
 		
+		helper.extractAndSaveIncomingWebhookURL(responseBody);
 	}
 }

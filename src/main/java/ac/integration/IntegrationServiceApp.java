@@ -4,8 +4,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication(scanBasePackages={"ac.integration"})
-public class SpringBootRestApiApp {
+public class IntegrationServiceApp {
 	public static void main(String[] args) {
-		SpringApplication.run(SpringBootRestApiApp.class,args);
+		SpringApplication.run(IntegrationServiceApp.class,args);
 	}
 }

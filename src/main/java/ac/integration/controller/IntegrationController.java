@@ -43,9 +43,9 @@ public class IntegrationController {
 		logger.info(eventJson);
 		logger.info("\nEnd : *********** Change item in AC *********\n");
 		
-		String messageToPost = Helper.getMessageToPost(eventJson);
+		String messageToPost = Helper.getMessageToPostToSlack(eventJson);
 		
-		slackService.postMessageToSlack(messageToPost);		
+		slackService.postMessageToSlackChannels(messageToPost);		
 	}
 	
 	@RequestMapping(value = "/oAuthSuccess")

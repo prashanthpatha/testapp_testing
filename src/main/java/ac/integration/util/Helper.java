@@ -24,7 +24,9 @@ public class Helper {
 	
 	public static final Logger logger = LoggerFactory.getLogger(Helper.class);
 	
-	public static String getMessageToPost(String eventJson) throws JsonProcessingException, IOException {
+	Properties slackProperties;
+	
+	public static String getMessageToPostToSlack(String eventJson) throws JsonProcessingException, IOException {
 		String messageToPost = "";
 		
 		ObjectMapper objectMapper = new ObjectMapper();
@@ -85,15 +87,45 @@ public class Helper {
 	}
 	
 	public Properties getProperties(String path) {
-		Properties properties = new Properties();
+		slackProperties = new Properties();
 		
 		try {
-			properties.load(getClass().getClassLoader().getResourceAsStream(path));
+			slackProperties.load(getClass().getClassLoader().getResourceAsStream(path));
 		} catch (IOException e) {
 			logger.error(e.getMessage(),e);
 		}
 		
-		return properties;
+		return slackProperties;
+	}
+	
+	public String extractAndSaveIncomingWebhookURL(String json) {
+		String value = "";
+		
+		ObjectMapper objectMapper = new ObjectMapper();
+		try {
+			JsonNode jsonNode = objectMapper.readTree(json.getBytes());
+			String incomingWebhookURL = jsonNode.path("incoming_webhook").path("url").asText();	
+			
+			logger.info("Got webhook : " + incomingWebhookURL);
+			
+			String hookValue = slackProperties.getProperty("incoming_webhook");
+			if(hookValue != null) {
+				hookValue.concat(",").concat(incomingWebhookURL);
+			} else {
+				hookValue = incomingWebhookURL;
+			}
+			slackProperties.setProperty("incoming_webhook", hookValue);
+			
+		} catch (IOException e) {
+			logger.error(e.getMessage(),e);
+		}
+		
+		return value;
+	}
+	
+	public String[] getIncomingWebhookURLs() {
+		String hookValue = slackProperties.getProperty("incoming_webhook");
+		return hookValue.split(",");	
 	}
 
 }
