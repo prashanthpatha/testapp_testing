@@ -14,6 +14,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.BasicResponseHandler;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,6 +55,8 @@ public class SlackService {
 		entity.setContentType("application/json");
 		httpPost.setEntity(entity);
 		httpClient.execute(httpPost);
+		
+		logger.info("Posted : " + incomingWebbookURL);
 	}
 	
 	public void postMessageToSlackChannels(String message) throws ClientProtocolException, IOException {
