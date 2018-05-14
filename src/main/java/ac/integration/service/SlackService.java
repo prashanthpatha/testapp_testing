@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Properties;
 
-import org.apache.commons.logging.LogFactory;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
@@ -14,12 +13,9 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.BasicResponseHandler;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import ac.integration.util.Helper;
 
 /**
@@ -33,15 +29,13 @@ public class SlackService {
 	
 	public static final Logger logger = LoggerFactory.getLogger(SlackService.class);
 
-	// TODO : hard coded webhook url to be removed
-	public static final String SLACK_INCOMING_WEBHOOK = "https://hooks.slack.com/services/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";
+	//public static final String SLACK_INCOMING_WEBHOOK = "https://hooks.slack.com/services/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";
 
 	public static final String SLACK_OAUTH_ACCESS_URL = "https://slack.com/api/oauth.access";
 
-	
 	Helper helper;
 
-	public SlackService() {// TODO Auto-generated constructor stub
+	public SlackService() {
 		helper = new Helper();
 	}
 
@@ -55,17 +49,12 @@ public class SlackService {
 		entity.setContentType("application/json");
 		httpPost.setEntity(entity);
 		httpClient.execute(httpPost);
-		
-		logger.info("Posted : " + incomingWebbookURL);
 	}
 	
 	public void postMessageToSlackChannels(String message) throws ClientProtocolException, IOException {
 		String[] hooks = helper.getIncomingWebhookURLs();
-		logger.info("hooks.length : " + hooks.length);
 		
 		for (int i = 0; i < hooks.length; i++) {
-			logger.info("l : message : " + message);
-			logger.info("l : Posting to hook : " + hooks[i]);
 			postMessageToSlackChannel(message,hooks[i]);
 		}
 	}
