@@ -110,8 +110,10 @@ public class Helper {
 			
 			String hookValue = slackProperties.getProperty("incoming_webhook");
 			if(hookValue != null) {
+				logger.info("\nin if block, hookValue : " + hookValue);
 				hookValue.concat(",").concat(incomingWebhookURL);
 			} else {
+				logger.info("\nin else block, hookValue : " + hookValue);
 				hookValue = incomingWebhookURL;
 			}
 			slackProperties.setProperty("incoming_webhook", hookValue);
