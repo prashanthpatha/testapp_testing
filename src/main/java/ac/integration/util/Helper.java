@@ -123,6 +123,7 @@ public class Helper {
 			hookValue = incomingWebhookURL;
 		}
 		slackProperties.setProperty("incoming_webhook", hookValue);
+		// TODO : posting to channel to be verified, currently not working
 	}
 
 	public String[] getIncomingWebhookURLs() {

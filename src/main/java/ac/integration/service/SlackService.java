@@ -46,6 +46,7 @@ public class SlackService {
 	}
 
 	public void postMessageToSlackChannel(String message, String incomingWebbookURL) throws ClientProtocolException, IOException {
+		logger.info("message : " + message);
 		logger.info("Posting to hook : " + incomingWebbookURL);
 		
 		HttpPost httpPost = new HttpPost(incomingWebbookURL);
@@ -58,6 +59,8 @@ public class SlackService {
 	public void postMessageToSlackChannels(String message) throws ClientProtocolException, IOException {
 		String[] hooks = helper.getIncomingWebhookURLs();
 		for (int i = 0; i < hooks.length; i++) {
+			logger.info("l : message : " + message);
+			logger.info("l : Posting to hook : " + hooks[i]);
 			postMessageToSlackChannel(message,hooks[i]);
 		}
 	}
