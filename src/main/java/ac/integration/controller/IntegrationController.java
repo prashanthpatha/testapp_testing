@@ -53,7 +53,7 @@ public class IntegrationController {
 		slackService.getSlackResources(code);
 	}
 	
-	/* method to test the api * 
+	/* method to test the apiChangeEvent * 
 	 * public static void main(String[] args) throws ClientProtocolException, IOException {
 		
 		FileInputStream fis = new FileInputStream(new IntegrationController().getClass().getClassLoader().getResource("event.json").getFile());
@@ -62,4 +62,6 @@ public class IntegrationController {
 		
 		new IntegrationController().itemChanged(eventJson, null);
 	}*/
+	
+	
 }

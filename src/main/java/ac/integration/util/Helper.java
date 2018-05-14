@@ -106,17 +106,7 @@ public class Helper {
 
 			logger.info("Got webhook : " + incomingWebhookURL);
 
-			String hookValue = slackProperties.getProperty("incoming_webhook");
-			if (hookValue != null) {
-				logger.info("\nin if block, hookValue : " + hookValue);
-				hookValue.concat(",").concat(incomingWebhookURL);
-			} else {
-				logger.info("\nin else block, hookValue : " + hookValue);
-				hookValue = incomingWebhookURL;
-			}
-			slackProperties.setProperty("incoming_webhook", hookValue);
-
-			logger.info("new hookValue = " + slackProperties.getProperty("incoming_webhook"));
+			saveWebhookURL(incomingWebhookURL);
 
 		} catch (IOException e) {
 			logger.error(e.getMessage(), e);
@@ -124,10 +114,19 @@ public class Helper {
 
 		return value;
 	}
+	
+	void saveWebhookURL(String incomingWebhookURL) {
+		String hookValue = slackProperties.getProperty("incoming_webhook");
+		if (hookValue != null) {
+			hookValue = hookValue.concat(",").concat(incomingWebhookURL);
+		} else {
+			hookValue = incomingWebhookURL;
+		}
+		slackProperties.setProperty("incoming_webhook", hookValue);
+	}
 
 	public String[] getIncomingWebhookURLs() {
 		String hookValue = slackProperties.getProperty("incoming_webhook");
 		return hookValue.split(",");
 	}
-
 }
