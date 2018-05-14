@@ -2,19 +2,27 @@ package ac.integration.util;
 
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.Properties;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import ac.integration.controller.IntegrationController;
+
 /**
- * Parser for parsing the json and getting required data from it
+ * Helper for parsing the json and getting required data from it
  * 
  * @author patpr14
  *
  */
 
-public class Parser {
+public class Helper {
+	
+	public static final Logger logger = LoggerFactory.getLogger(Helper.class);
 	
 	public static String getMessageToPost(String eventJson) throws JsonProcessingException, IOException {
 		String messageToPost = "";
@@ -74,6 +82,18 @@ public class Parser {
 					"\n\n Click on below link for more details on this story : \n" + detailLink;
 		
 		return messageToPost;
+	}
+	
+	public Properties getProperties(String path) {
+		Properties properties = new Properties();
+		
+		try {
+			properties.load(getClass().getClassLoader().getResourceAsStream(path));
+		} catch (IOException e) {
+			logger.error(e.getMessage(),e);
+		}
+		
+		return properties;
 	}
 
 }
