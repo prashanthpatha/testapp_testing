@@ -48,6 +48,7 @@ public class IntegrationController {
 		slackService.postMessageToSlack(messageToPost);		
 	}
 	
+	@RequestMapping(value = "/oAuthSuccess")
 	public void oAuthSuccess(@RequestParam String code) throws ClientProtocolException, URISyntaxException, IOException {
 		slackService.getSlackResources(code);
 	}
