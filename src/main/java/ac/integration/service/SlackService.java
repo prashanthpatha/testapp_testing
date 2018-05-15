@@ -71,6 +71,8 @@ public class SlackService {
 
 		HttpGet httpGet = new HttpGet(uriBuilder.build());
 		
+		logger.info("URI for getting resources : " + uriBuilder.toString());
+		
 		HttpResponse httpResponse = httpClient.execute(httpGet);
 		
 		ResponseHandler<String> handler = new BasicResponseHandler();

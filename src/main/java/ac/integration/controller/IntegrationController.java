@@ -50,6 +50,7 @@ public class IntegrationController {
 	
 	@RequestMapping(value = "/oAuthSuccess")
 	public void oAuthSuccess(@RequestParam String code) throws ClientProtocolException, URISyntaxException, IOException {
+		logger.info("code received : <<" + code + ">>");
 		slackService.getSlackResources(code);
 	}
 	
