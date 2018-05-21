@@ -2,6 +2,8 @@ package ac.integration.util;
 
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.Properties;
 
 import org.slf4j.Logger;
@@ -12,6 +14,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import ac.integration.controller.IntegrationController;
+import ac.integration.model.Integration;
+import ac.integration.model.Integrations;
 
 /**
  * Helper for parsing the json and getting required data from it
@@ -25,6 +29,11 @@ public class Helper {
 	public static final Logger logger = LoggerFactory.getLogger(Helper.class);
 
 	Properties slackProperties;
+	Integrations integrations;
+	
+	public Helper() {
+		integrations = new Integrations();
+	}
 
 	public static String getMessageToPostToSlack(String eventJson) throws JsonProcessingException, IOException {
 		String messageToPost = "";
@@ -95,8 +104,41 @@ public class Helper {
 
 		return slackProperties;
 	}
+	
+	public void extractAndSaveSlackResources(String json) {
+		ObjectMapper objectMapper = new ObjectMapper();
+		
+		try {
+			JsonNode jsonNode = objectMapper.readTree(json.getBytes());
+			
+			Integration integration = new Integration();
+			integration.setAccessToken(jsonNode.path("access_token").asText());
+			integration.setScope(jsonNode.path("scope").asText());
+			integration.setUserID(jsonNode.path("user_id").asText());
+			integration.setTeamName(jsonNode.path("team_name").asText());
+			integration.setTeamID(jsonNode.path("team_id").asText());
+			integration.setChannel(jsonNode.path("channel").asText());
+			integration.setChannelID(jsonNode.path("channel_id").asText());
+			integration.setConfigurationURL(jsonNode.path("configuration_url").asText());
+			
+			integrations.add(integration);
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+	}
+	
+	public LinkedHashSet<Integration> getIntegrations() {
+		Integration i = new Integration();
+		i.setAccessToken("sdfds");
+		i.setChannelID("fssd");
+		integrations.add(i);
+		
+		return integrations.getIntegrations();
+	}
 
-	public String extractAndSaveIncomingWebhookURL(String json) {
+	/*public String extractAndSaveIncomingWebhookURL(String json) {
 		String value = "";
 
 		ObjectMapper objectMapper = new ObjectMapper();
@@ -128,5 +170,5 @@ public class Helper {
 	public String[] getIncomingWebhookURLs() {
 		String hookValue = slackProperties.getProperty("incoming_webhook");
 		return hookValue.split(",");
-	}
+	}*/
 }
