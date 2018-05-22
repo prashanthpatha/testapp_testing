@@ -14,5 +14,4 @@ public class Integrations {
 		return integrations;
 	}
 	
-	
 }

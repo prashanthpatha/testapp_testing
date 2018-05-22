@@ -39,9 +39,9 @@ public class IntegrationController {
 	
 	@RequestMapping(value = "/changeEvent", method = RequestMethod.POST) 
 	public void itemChanged(@RequestBody String eventJson, UriComponentsBuilder ucBuilder) throws ClientProtocolException, IOException {
-		logger.info("\nBegin : *********** Change item in AC *********\n");
+		/*logger.info("\nBegin : *********** Change item in AC *********\n");
 		logger.info(eventJson);
-		logger.info("\nEnd : *********** Change item in AC *********\n");
+		logger.info("\nEnd : *********** Change item in AC *********\n");*/
 		
 		String messageToPost = Helper.getMessageToPostToSlack(eventJson);
 		

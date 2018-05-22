@@ -124,17 +124,11 @@ public class Helper {
 			integrations.add(integration);
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error(e.getMessage(),e);
 		}	
 	}
 	
 	public LinkedHashSet<Integration> getIntegrations() {
-		Integration i = new Integration();
-		i.setAccessToken("sdfds");
-		i.setChannelID("fssd");
-		integrations.add(i);
-		
 		return integrations.getIntegrations();
 	}
 
