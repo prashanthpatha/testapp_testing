@@ -54,7 +54,7 @@ public class SlackService {
 
 	public void postMessageToSlackChannel(String message, Integration integration) {
 		logger.info("message : " + message);
-		logger.info("Posting to channel : " + integration.getChannel());
+		logger.info("integration : " + integration.toString());
 		
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		HttpPost httpPost = new HttpPost(SLACK_POSTMESSAGE_URL);
