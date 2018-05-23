@@ -60,14 +60,14 @@ public class Integration {
 	}
 	
 	public String toString() {
-		return "accessToken = " + accessToken +
-				"scope = " + scope +
-				"userID = " + userID +
-				"teamName = " + teamName +
-				"teamID = " + teamID +
-				"channel = " + channel +
-				"channelID = " + channelID +
-				"configurationURL = " + configurationURL ;
+		return "accessToken = " + accessToken +	
+				" :: scope = " + scope +
+				" :: userID = " + userID +
+				" :: teamName = " + teamName +
+				" :: teamID = " + teamID +
+				" :: channel = " + channel +
+				" :: channelID = " + channelID +
+				" :: configurationURL = " + configurationURL ;
 	}
 	
 }

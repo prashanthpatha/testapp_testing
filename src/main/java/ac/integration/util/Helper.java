@@ -117,9 +117,11 @@ public class Helper {
 			integration.setUserID(jsonNode.path("user_id").asText());
 			integration.setTeamName(jsonNode.path("team_name").asText());
 			integration.setTeamID(jsonNode.path("team_id").asText());
-			integration.setChannel(jsonNode.path("channel").asText());
-			integration.setChannelID(jsonNode.path("channel_id").asText());
-			integration.setConfigurationURL(jsonNode.path("configuration_url").asText());
+			
+			JsonNode hookNode = jsonNode.path("incoming_webhook");
+			integration.setChannel(hookNode.path("channel").asText());
+			integration.setChannelID(hookNode.path("channel_id").asText());
+			integration.setConfigurationURL(hookNode.path("configuration_url").asText());
 			
 			integrations.add(integration);
 			
